@@ -1,0 +1,86 @@
+@media screen and (max-width: 480px) {
+	img {
+		width: 100px;
+	}
+	.user{
+		width: 200px;
+	}
+}
+
+@media screen and (min-width: 481px) {
+	img {
+		width: 150px;
+	}
+	.user{
+		width: 400px;
+	}
+	img:hover{
+		width: 200px;
+	}
+}
+
+@media screen and (min-width: 960px) {
+	img {
+		width: 200px;
+	}
+	.user{
+		width: 600px;
+	}
+	img:hover{
+		width: 250px;
+	}
+}
+
+@media screen and (min-width: 1201px) {
+	img {
+		width: 250px;
+	}
+	.user{
+		width: 700px;
+	}
+	img:hover{
+		width: 300px;
+	}
+}
+
+img {
+	cursor: pointer;
+	padding: 5px;
+    transition: width 2s, background-color 2s;
+    opacity: .8;
+}
+
+img:hover{
+	background-color: #FFCCCC;
+	opacity: 1;
+}
+
+body {
+	background-color: #F0FAF9;
+}
+
+.user {
+	padding: 15px;
+	border-top: 1px solid black;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#user-table {
+	padding: 10px;
+	margin: 10px;
+}
+
+.font-login {
+	font-weight: bold;
+	font-size: 1.2em;
+	font-variant: small-caps;
+}
+
+.element::after{
+	content: ', ';
+}
+
+.element:last-child:after { 
+	content: '';
+}
