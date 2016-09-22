@@ -7,6 +7,9 @@ const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const path = require('path');
 const browserSync = require('browser-sync');
+const jshint = require('gulp-jshint');
+const stylish = require('jshint-stylish');
+const babel = require('gulp-babel');
 
 var src = {
     js: {
@@ -26,6 +29,12 @@ var src = {
 },
     dest = './public';
 
+gulp.task('jshint', function(){
+	return gulp.src(src.js.custom)
+		.pipe(jshint())
+		.pipe(jshint.reporter('jshint-stylish'))
+		.pipe(jshint.reporter('fail'));
+})
 
 gulp.task('styles', function() {
 	return gulp.src(src.css.custom)
@@ -39,6 +48,8 @@ gulp.task('styles', function() {
 gulp.task('assets', function(){
 	return gulp.src(src.js.custom)
 	.pipe(sourcemaps.init())
+	.pipe(babel({presets: ['es2015']}))
+	.pipe(uglify())
     .pipe(concat('all.js'))
     .pipe(sourcemaps.write())
 	.pipe(gulp.dest(dest))
@@ -76,7 +87,7 @@ gulp.task('build', gulp.series(
 
 gulp.task('watch', function() {
 	gulp.watch('app/css/**/*.*', gulp.series('styles'));
-	gulp.watch('app/js/**/*,*', gulp.series('assets'));
+	gulp.watch('app/js/**/*.*', gulp.series('assets'));
 });
 
 gulp.task('serve', function() {
@@ -87,4 +98,4 @@ gulp.task('serve', function() {
   browserSync.watch('public/**/*.*').on('change', browserSync.reload);
 });
 
-gulp.task('dev', gulp.series('build', gulp.parallel('watch', 'serve')));
+gulp.task('default', gulp.series('jshint', 'build', gulp.parallel('watch', 'serve')));
